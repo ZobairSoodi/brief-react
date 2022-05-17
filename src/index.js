@@ -4,24 +4,22 @@ import ToDoInput from './ToDoInput/ToDoInput.js';
 import ToDoItem from './ToDoItem/ToDoItem.js';
 import ToDoList from './ToDoList/ToDoList.js';
 
-var myList = [];
+if (localStorage.getItem("list") == null) {
+  localStorage.setItem("list", "[]");
+}
+let myList = JSON.parse(localStorage.getItem("list"));
 
-function add_to_list(e){
+function add_to_list(e) {
   var inp2 = e.target;
-  var inp1 =  inp2.previousSibling;
-  alert(inp1.value);
+  var inp1 = inp2.previousSibling;
+  // myList.push({})
+  localStorage.setItem
 }
 
-fetch("list.json").then((response) => response.json()).then((data) => {
-  console.log(data);
-  myList = data;
-  const root = ReactDOM.createRoot(document.getElementById('root'));
-  root.render(
-    <>
-      <ToDoInput func={add_to_list}></ToDoInput>
-      <ToDoList myList={myList} ></ToDoList>
-    </>
-  )
-
-})
-
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <>
+    <ToDoInput func={add_to_list} />
+    <ToDoList myList={myList}></ToDoList>
+  </>
+)
