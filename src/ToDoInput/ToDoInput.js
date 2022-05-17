@@ -1,9 +1,5 @@
 import s from './ToDoInput.module.css';
 
-function add_to_list(btn){
-    var inp1 = btn.previousSibling;
-    alert(inp1.value);
-}
 
 function ToDoInput(props){
     return (

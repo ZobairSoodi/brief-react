@@ -1,12 +1,12 @@
+import { useState } from 'react';
 import ToDoItem from '../ToDoItem/ToDoItem.js';
-
-var myList = [];
 
 
 function ToDoList(props) {
+    const [myList, setMyList] = useState(props.myList);
     return (
         <ul>
-            {props.myList.map((item) => <ToDoItem key={item.id} title={item.title} status={item.status} />)}
+            {myList.map((item) => <ToDoItem key={item.id} title={item.title} status={item.status} />)}
         </ul>
     )
 }
