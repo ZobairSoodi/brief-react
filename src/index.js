@@ -10,7 +10,7 @@ if (localStorage.getItem("list") == null) {
 let temp_list = JSON.parse(localStorage.getItem("list"));
 
 function add_to_list(e) {
-  
+
   var inp2 = e.target;
   var inp1 = inp2.previousSibling;
   temp_list.push(
@@ -22,8 +22,6 @@ function add_to_list(e) {
   )
   localStorage.setItem("list", JSON.stringify(temp_list));
 }
-
-
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
