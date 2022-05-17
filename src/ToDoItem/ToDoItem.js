@@ -7,7 +7,7 @@ function ToDoItem(props){
             <span className="title_item">
                 {props.title}
             </span>
-            <button className="delete_item"></button>
+            <button className="delete_item">Delete</button>
         </li>
     )
 }
