@@ -9,6 +9,10 @@ import { useState } from 'react';
 
 function Main(props) {
 
+  if (localStorage.getItem("max_id") == null) {
+    localStorage.setItem("max_id", "0");
+  }
+
   if (localStorage.getItem("list") == null) {
     localStorage.setItem("list", "[]");
   }
@@ -20,6 +24,7 @@ function Main(props) {
 
     var inp2 = e.target;
     var inp1 = inp2.previousSibling.value;
+    var max_id = Number(localStorage.getItem("max_id"));
     temp_list.push(
       {
         "id": temp_list.length + 1,
@@ -29,8 +34,9 @@ function Main(props) {
     );
     localStorage.setItem("list", JSON.stringify(temp_list));
 
+
     var obj = {
-      "id": temp_list.length + 1,
+      "id": max_id + 1,
       "title": inp1,
       "status": 0
     };
@@ -38,6 +44,7 @@ function Main(props) {
     //console.log(temp_list);
     // setMyList([{'id': 2, 'name': 'test', 'status':'done'}]);
     //setMyList([temp_list]);
+    localStorage.setItem("max_id", JSON.stringify(max_id + 1));
   }
 
   function checkClick(id) {
@@ -68,6 +75,15 @@ function Main(props) {
 
   }
 
+  function deleteClick(id) {
+    setMyList(
+      [
+        ...myList.slice(0, id - 1),
+        ...myList.slice(id, myList.length + 1)
+      ]
+    );
+  }
+
   // const checkClick = (e) => {
   //   var title = e.target.nextElementSibling;
   //   title.classList.toggle(s.line_thorugh);
@@ -80,7 +96,7 @@ function Main(props) {
   return (
     <>
       <ToDoInput func={add_to_list} />
-      <ToDoList myList={myList} checkClick={checkClick}></ToDoList>
+      <ToDoList myList={myList} checkClick={checkClick} deleteClick={deleteClick}></ToDoList>
     </>
   )
 }
