@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import ToDoInput from './ToDoInput/ToDoInput.js';
 import ToDoItem from './ToDoItem/ToDoItem.js';
 import ToDoList from './ToDoList/ToDoList.js';
+import s from './ToDoItem/ToDoItem.module.css';
 import { useState } from 'react';
 
 
@@ -27,11 +28,11 @@ function Main(props) {
       }
     );
     localStorage.setItem("list", JSON.stringify(temp_list));
-    
+
     var obj = {
       "id": temp_list.length + 1,
       "title": inp1,
-      "status": ""
+      "status": 0
     };
     setMyList([...myList, obj]);
     //console.log(temp_list);
@@ -39,13 +40,52 @@ function Main(props) {
     //setMyList([temp_list]);
   }
 
+  function checkClick(id) {
+    // var title = e.target.nextElementSibling;
+    // title.classList.toggle(s.line_thorugh);
+
+    var status = 0;
+    if (myList[id - 1].status) {
+      status = 0;
+    }
+    else {
+      status = 1;
+    }
+
+    var obj = {
+      "id": id,
+      "title": myList[id - 1].title,
+      "status": status
+    };
+    setMyList(
+      [
+        ...myList.slice(0, id - 1),
+        obj,
+        ...myList.slice(id, myList.length + 1)
+      ]
+    );
+
+
+  }
+
+  // const checkClick = (e) => {
+  //   var title = e.target.nextElementSibling;
+  //   title.classList.toggle(s.line_thorugh);
+  // }
+
+  useEffect(() => {
+    localStorage.setItem("list", JSON.stringify(myList));
+  }, [myList])
+
   return (
     <>
       <ToDoInput func={add_to_list} />
-      <ToDoList myList={myList}></ToDoList>
+      <ToDoList myList={myList} checkClick={checkClick}></ToDoList>
     </>
   )
 }
+
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
