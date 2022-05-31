@@ -71,8 +71,6 @@ function Main(props) {
         ...myList.slice(id, myList.length + 1)
       ]
     );
-
-
   }
 
   function deleteClick(id) {
