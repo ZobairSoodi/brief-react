@@ -79,7 +79,7 @@ function Main(props) {
     setMyList(
       [
         ...myList.slice(0, id - 1),
-        ...myList.slice(id, myList.length + 1)
+        ...myList.slice(id + 1, myList.length + 1)
       ]
     );
   }
